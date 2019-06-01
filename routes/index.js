@@ -4,8 +4,14 @@ var path = require("path");
 
 var publicFolderPath = path.join(__dirname,"../public");
 
-var isSignedInMiddleware = function(req, res, next) {
-  next();
+var isAuthenticated = function(req, res, next) {
+  if(req.session.userId) {
+    req.session.lastRoute = req.originalUrl;
+    next();
+  } else {
+    req.session.lastRoute = req.originalUrl;
+    res.redirect("/");
+  }
 }
 
 /* GET home page. */
@@ -14,8 +20,8 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get('/dashboard', function(req,res,next) {
-  res.sendFile("dashboard.html",{root : publicFolderPath});
+router.get('/dashboard',isAuthenticated, function(req,res,next) {
+
 });
 
 
