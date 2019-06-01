@@ -14,11 +14,11 @@ db.once("open", function () {
   console.log("Connected to mongo database");
 });
 var isAuthenticated = function (req, res, next) {
-  if (req.session.userId) {
-    req.session.lastRoute = req.originalUrl;
+  if (req.session.user) {
+    // req.session.lastRoute = req.originalUrl;
     next();
   } else {
-    req.session.lastRoute = req.originalUrl;
+    // req.session.lastRoute = req.originalUrl;
     res.redirect("/");
   }
 }
@@ -32,7 +32,7 @@ router.get('/signup', function (req, res, next) {
   res.sendFile("signup.html", { root: publicFolderPath });
 });
 
-router.get('/dashboard', function (req, res, next) {
+router.get('/dashboard',isAuthenticated, function (req, res, next) {
   res.sendFile("dashboard.html", { root: publicFolderPath });
 });
 
@@ -47,6 +47,7 @@ router.post('/signin', function (req, res, next) {
 
   User.findOne({ password: password, username: username }).then(function (existingUser) {
     if (existingUser) {
+      req.session.user = existingUser;
       res.send({ success: 1 });
     } else {
       res.send({ success: 0, errorMessage: "Username or email already exists" });
@@ -76,8 +77,9 @@ router.post('/signup', function (req, res, next) {
   });
 });
 
-router.get("/signOut", function (req, res, next) {
-
+router.get("/signout", function (req, res, next) {
+  delete req.session.user;
+  res.send("Logged out");
 });
 
 module.exports = router;
