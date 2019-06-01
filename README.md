@@ -10,9 +10,11 @@ A very simple auction app where users can create and participate in real-time au
 - Socket.io
 
 ## How to use
+```bash 
+> git clone https://github.com/SyedZeeshanHasmi/Auctioneer.git
+> cd Auctioneer/
+> npm install
+> npm start
+```
 
-- Clone the repo ```git clone https://github.com/SyedZeeshanHasmi/Auctioneer.git```
-- ```cd Auctioneer/```
-- ```npm install```
-- ```npm start```
-- App is now running in ```localhost:3000```
+App is now running in ```localhost:3000```

@@ -19,6 +19,9 @@ router.get('/', function(req, res, next) {
   res.sendFile("index.html", {root: publicFolderPath});
 });
 
+router.get('/signup', function(req,res, next) {
+  res.sendFile("signup.html", {root: publicFolderPath});
+});
 
 router.get('/dashboard',isAuthenticated, function(req,res,next) {
 
