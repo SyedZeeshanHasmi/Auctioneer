@@ -64,7 +64,12 @@ section{
         .form{
             width: 50%;
             margin: 25% auto;
-
+            .warning {
+                color: red;
+            }
+            .hidden {
+                display: none;
+            }
             label{
                 text-transform: capitalize;
                 letter-spacing: 1px;

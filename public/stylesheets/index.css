@@ -68,6 +68,14 @@ section .right-section .form {
   margin: 25% auto;
 }
 
+section .right-section .form .warning {
+  color: red;
+}
+
+section .right-section .form .hidden {
+  display: none;
+}
+
 section .right-section .form label {
   text-transform: capitalize;
   letter-spacing: 1px;

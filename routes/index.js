@@ -23,17 +23,30 @@ router.get('/signup', function(req,res, next) {
   res.sendFile("signup.html", {root: publicFolderPath});
 });
 
-router.get('/dashboard',isAuthenticated, function(req,res,next) {
-
+router.get('/dashboard', function(req,res,next) {
+  res.sendFile("dashboard.html", {root: publicFolderPath});
 });
 
 
-router.post('/signIn', function(req,res,next) {
+router.post('/signin', function(req,res,next) {
 
 });
 
-router.post('/signUp', function(req, res, next) {
+router.post('/signup', function(req, res, next) {
+  var userCredentials = req.body;
+  var email = userCredentials.email;
+  var password = userCredentials.password;
+  var username = userCredentials.username;
 
+
+  console.log("Email is ",email);
+  console.log("Password is ",password);
+  console.log("Username is ",username);
+
+  
+
+
+  res.send({success : 0});
 });
 
 router.get("/signOut", function(req, res, next) {
