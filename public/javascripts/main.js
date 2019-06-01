@@ -23,7 +23,7 @@ $(document).ready(function () {
                 if (response.success === 1) {
                     window.location = "/dashboard";
                 } else {
-                    $("#signup-form .warning").html("Invalid username or password");
+                    $("#signup-form .warning").html(response.errorMessage);
                     $("#signup-form .warning").removeClass("hidden");
                 }
             },
