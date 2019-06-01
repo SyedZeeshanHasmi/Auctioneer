@@ -56,7 +56,7 @@ $(document).ready(function () {
                 if (response.success === 1) {
                     window.location = "/dashboard";
                 } else {
-                    $("#login-form .warning").html("Invalid username or password");
+                    $("#login-form .warning").html(response.errorMessage);
                     $("#login-form .warning").removeClass("hidden");
                 }
             },

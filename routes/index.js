@@ -5,12 +5,12 @@ var mongoose = require('mongoose');
 
 var User = require("../models/users");
 
-mongoose.connect('mongodb://localhost/auctioneer', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/auctioneer', { useNewUrlParser: true });
 
 var publicFolderPath = path.join(__dirname, "../public");
 var db = mongoose.connection;
 
-db.once("open", function() {
+db.once("open", function () {
   console.log("Connected to mongo database");
 });
 var isAuthenticated = function (req, res, next) {
@@ -45,9 +45,13 @@ router.post('/signin', function (req, res, next) {
   console.log("Password is ", password);
   console.log("Username is ", username);
 
-
-
-  res.send({ success: 1 });
+  User.findOne({ password: password, username: username }).then(function (existingUser) {
+    if (existingUser) {
+      res.send({ success: 1 });
+    } else {
+      res.send({ success: 0, errorMessage: "Username or email already exists" });
+    }
+  });
 });
 
 router.post('/signup', function (req, res, next) {
@@ -56,16 +60,16 @@ router.post('/signup', function (req, res, next) {
   var password = userCredentials.password;
   var username = userCredentials.username;
 
-  User.findOne({$or : [{email : email},{username : username}]}).then(function(existingUser) {
-    if(existingUser) {
-      res.send({success : 0, errorMessage : "Username or email already exists"});
+  User.findOne({ $or: [{ email: email }, { username: username }] }).then(function (existingUser) {
+    if (existingUser) {
+      res.send({ success: 0, errorMessage: "Username or email already exists" });
     } else {
       var user = new User({
-        email : email,
-        username : username,
-        password : password
+        email: email,
+        username: username,
+        password: password
       });
-    
+
       user.save();
       res.send({ success: 1 });
     }
